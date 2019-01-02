@@ -1,10 +1,12 @@
 <template>
   <!-- <HelloWorld /> -->
-  <v-container>
-    <v-layout text-xs-center wrap>
-      <h2>Home page</h2>
-    </v-layout>
-  </v-container>
+  <main>
+    <v-container>
+      <v-layout text-xs-center wrap>
+        <h1>Dashboard</h1>
+      </v-layout>
+    </v-container>
+  </main>
 </template>
 
 <script>

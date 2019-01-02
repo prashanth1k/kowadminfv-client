@@ -1,8 +1,22 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
+import store from "./store";
 
 Vue.use(Router);
+
+function isLoggedIn(from, to, next) {
+  store
+    .dispatch("auth/authenticate")
+    .then(() => {
+      next();
+    })
+    .catch(e => {
+      console.log("Auth error " + JSON.stringify(e));
+      console.log("redirecting to home page");
+      next("/login");
+    });
+}
 
 export default new Router({
   mode: "history",
@@ -12,6 +26,49 @@ export default new Router({
       path: "/",
       name: "home",
       component: Home
+    },
+    {
+      path: "/dashboard",
+      name: "dashboard",
+      beforeEnter: isLoggedIn,
+      component: () =>
+        import(/* webpackChunkName: "dashboard" */ "./views/Dashboard.vue")
+    },
+    {
+      path: "/meter",
+      name: "wMeter",
+      beforeEnter: isLoggedIn,
+      component: () =>
+        import(/* webpackChunkName: "wMeters" */ "./views/Meter.vue")
+    },
+    {
+      path: "/meterd/:id",
+      name: "meterDetail",
+      beforeEnter: isLoggedIn,
+
+      component: () =>
+        import(/* webpackChunkName: "meterDetail" */ "./views/MeterDetail.vue")
+    },
+    {
+      path: "/login",
+      name: "login",
+
+      component: () =>
+        import(/* webpackChunkName: "login" */ "./views/Login.vue")
+    },
+    {
+      path: "/signup",
+      name: "signup",
+
+      component: () =>
+        import(/* webpackChunkName: "signup" */ "./views/Signup.vue")
+    },
+    {
+      path: "/settings",
+      name: "settings",
+
+      component: () =>
+        import(/* webpackChunkName: "settings" */ "./views/Settings.vue")
     },
     {
       path: "/about",
