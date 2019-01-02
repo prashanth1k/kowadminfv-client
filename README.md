@@ -1,5 +1,9 @@
 # client
 
+Demonstration purposes only. Uses vue to connect with feathersjs backend.
+Caution: Needs heavy optimization and implementation of best practices.
+
+
 ## Project setup
 ```
 npm install
